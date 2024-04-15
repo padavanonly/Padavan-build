@@ -32,15 +32,15 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/sunnyguhz/Padavan.git /opt/rt-n56u
-        cd /opt/rt-n56u/toolchain-mipsel
+        git clone --depth=1 https://github.com/sunnyguhz/Padavan.git /opt/PSG1218
+        cd /opt/PSG1218/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: psg1218
+        TNAME: PSG218
       run: |
-        cd /opt/rt-n56u/trunk
+        cd /opt/PSG1218/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
         echo "configs/templates/$TNAME.config not found "
         exit 1
