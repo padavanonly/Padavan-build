@@ -1,50 +1,50 @@
-#修改TNAME: K2P 中的K2P为你需要编译的型号，注意名称要与configs/templates/目录下的名字相同
-name: Build Padavan
+#修改TNAME: K2P中的K2P为你需要编译的型号，注意名称要与configs/templates/目录下的名称相同
+名称：建造帕达文
 
 on: 
   release:
-    types: [published]
+    types: [    类型：[已发布]]
   push:
     tags:
     - 'v*'
-  #  branches: 
-  #    - master
+  # 分支机构：#  branches: 
+  ＃ - 掌握#    - master
 #  schedule:
 #    - cron: 0 8 * * 5
   watch:
-    types: [started]
+    types: [    类型：[开始]]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
-    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on:     运行系统：ubuntu-20.04
+    if:     如果： github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Initialization environment
+    - name:     - 名称：结帐
+      uses:       使用：actions/checkout@master
+    - name:     - name: 初始化环境
       env:
-        DEBIAN_FRONTEND: noninteractive
+        DEBIAN_FRONTEND:         DEBIAN_FRONTEND：非交互式
       run: |
         sudo apt-get update
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
-    - name: Clone source code
+    - name:     - 名称：克隆源代码
       run: |
         git clone --depth=1 https://github.com/sunnyguhz/Padavan.git /opt/PSG1218
         cd /opt/PSG1218/toolchain-mipsel
         sh dl_toolchain.sh
-        mkdir -p /opt/images/
-    - name: Build Firmware
-      env:
-        TNAME: PSG218
-      run: |
+        mkdir -p /opt/图像/
+    -名称：构建固件
+      环境：
+        名称： PSG1218
+      运行：|
         cd /opt/PSG1218/trunk
-        if [ ! -f configs/templates/$TNAME.config ] ; then
-        echo "configs/templates/$TNAME.config not found "
-        exit 1
-        fi
+        如果 [ ！-f configs/templates/$TNAME.config ] ; 然后
+        echo“未找到配置/模板/$TNAME.config”
+        1号出口
+        菲
         cp -f configs/templates/$TNAME.config .config
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
 
@@ -55,10 +55,10 @@ jobs:
 
 
 
-        sudo ./clear_tree
+        须藤 ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
-        sudo mv -f images/*.trx /opt/images/
-    - name : Upload packages
+        sudo mv -f 图片/*.trx /opt/images/
+    - name  :上传包
       uses: actions/upload-artifact@master
       if: always()
       with:
